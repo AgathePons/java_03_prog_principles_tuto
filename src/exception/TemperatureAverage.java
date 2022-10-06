@@ -8,17 +8,22 @@ public class TemperatureAverage {
 	public static void main(String[] args) {
 		List<Integer> temperaturesList = new ArrayList<Integer>();
 
-		for (String stringTemperature : args) {
-			int temperature = Integer.parseInt(stringTemperature);
-			temperaturesList.add(temperature);
-		}
+		try {
+			for (String stringTemperature : args) {
+				int temperature = Integer.parseInt(stringTemperature);
+				temperaturesList.add(temperature);
+			}
 
-		if (temperaturesList.size() == 0) {
-			System.out.println("The list of temperatures is empty!");
-		} else {
 			Integer averageTemperature = SimpleMaths.calculateAverage(temperaturesList);
 			System.out.println("The average temperature is " + averageTemperature);
+		} catch (NumberFormatException event) {
+			System.out.println("All arguments should be provided as numbers");
+			System.exit(-1);
+		} catch (ArithmeticException event) {
+			System.out.println("At least 1 temperature should be provided");
+			System.exit(-1);
 		}
+
 	}
 
 }

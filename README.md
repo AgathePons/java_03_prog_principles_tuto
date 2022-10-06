@@ -227,10 +227,40 @@ Exception in thread "main" java.lang.NumberFormatException: For input string: "f
 
 ### Handle exceptions : `try` / `catch`
 
+The exception handler throws an event which interupt normal execution of the program. If this event is
+detected, the problem can be solved, else, the program crashes with a stack tracking describing what happend.
 
+To do that, we can use `try` / `catch`, try to execute some bloc code, and if an error occurs, catch it.
 
+If an error occurs in a try bloc, that throws an error which is catched by the `catch` bloc. If nothing is
+catched in the `catch` bloc, the program crashes.
 
+So let's re-write our program:
 
+```java
+try {
+    for (String stringTemperature : args) {
+        int temperature = Integer.parseInt(stringTemperature);
+        temperaturesList.add(temperature);
+    }
+
+    Integer averageTemperature = SimpleMaths.calculateAverage(temperaturesList);
+    System.out.println("The average temperature is " + averageTemperature);
+} catch (NumberFormatException event) {
+    System.out.println("All arguments should be provided as numbers");
+    System.exit(-1);
+} catch (ArithmeticException event) {
+    System.out.println("At least 1 temperature should be provided");
+    System.exit(-1);
+}
+```
+
+In the `catch (Exception event)` bloc, we can specify the exception type, and if an exception of this type
+happen, the instructions in the bloc are executed.
+
+Handle exceptions is a big part of Java, see the Java doc for
+[exceptions](https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html) for more about
+exceptions.
 
 -------------------------------------------------------
 
