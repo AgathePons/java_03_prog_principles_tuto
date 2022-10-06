@@ -157,3 +157,80 @@ This kind of error is related to the code logic, like access to data that does n
 in an other format, or the execution of an action that is not handled.  
 For exampple, if we try to access an element of a list with `myList.get(15)`, the syntax is correct, but if
 the list contains only 3 elements, we will have an execution error.
+
+### Exception : execution errors
+
+Let's take an example.
+
+We have a class `SimpleMaths` with a method inside it to calculate the average of a list of integers.
+
+```java
+public class SimpleMaths {
+    public static int calculateAverage(List<Integer> listOfIntegers) {
+        int average = 0;
+        for (int value : listOfIntegers) {
+            average += value;
+        }
+        average /= listOfIntegers.size();
+        return average;
+    }
+}
+```
+
+And we have a class `TemperatureAverage` which create a `temperaturesList` with the arguments given at the
+execution, and calculate the average.
+
+```java
+public class TemperatureAverage {
+
+    public static void main(String[] args) {
+        List<Integer> temperaturesList = new ArrayList<Integer>();
+
+        for (String stringTemperature : args) {
+            int temperature = Integer.parseInt(stringTemperature);
+            temperaturesList.add(temperature);
+        }
+
+        Integer averageTemperature = SimpleMaths.calculateAverage(temperaturesList);
+        System.out.println("The average temperature is " + averageTemperature);
+    }
+
+}
+```
+
+If we execute with `0` and `50` in arguments, it is OK.  
+But if we execute without arguments, the program tries a divide by zero, and it craches.
+
+We can use a `if` instruction to handle this case:
+
+```java
+if (temperaturesList.size() == 0) {
+    System.out.println("The list of temperatures is empty!");
+} else {
+    Integer averageTemperature = SimpleMaths.calculateAverage(temperaturesList);
+    System.out.println("The average temperature is " + averageTemperature);
+}
+```
+
+Now, it is OK without arguments, but if we execute with `0`, `50`, and `five`, the program tries to 
+`parseInt()` the string `five`, and it crashes.
+
+But when these errors occur, we get a **stack tracking** that gives error messages, and infos.
+
+```
+Exception in thread "main" java.lang.NumberFormatException: For input string: "five"
+    at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+    at java.base/java.lang.Integer.parseInt(Integer.java:668)
+    at java.base/java.lang.Integer.parseInt(Integer.java:786)
+    at exception.TemperatureAverage.main(TemperatureAverage.java:12)
+```
+
+### Handle exceptions : `try` / `catch`
+
+
+
+
+
+
+-------------------------------------------------------
+
