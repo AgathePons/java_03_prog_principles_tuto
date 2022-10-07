@@ -2,7 +2,7 @@
 
 ## Recursivity
 
-Recursivity is a besic programmation principle.  
+Recursivity is a basic programmation principle.  
 A recursive function is a function which call itself. A good example is the factorial calcul:
 
 `N! = N * (N-1)!`
@@ -261,6 +261,73 @@ happen, the instructions in the bloc are executed.
 Handle exceptions is a big part of Java, see the Java doc for
 [exceptions](https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html) for more about
 exceptions.
+
+## Manipulate files
+
+### Read files
+
+To read files in Java, we can initiate a **FileReader** to read a file (the path is given in argument, and
+from the root folder of the app if relative) and a **BufferedReader** which use the FileReader to read the
+file line by line.
+
+With a `while` loop, we can read each line of the file.
+
+We must be careful and handle the exceptions (if the path is not correct, if the file does not exist, if we do
+not have the rights to read / write the file...).
+
+```java
+try {
+    // path from the project root
+    // or absolute path "E:/Java/workspace/java_03_prog_principles_tuto/test.txt"
+    FileReader fileReader = new FileReader("test.txt");
+    BufferedReader reader = new BufferedReader(fileReader);
+
+    try {
+        String line = reader.readLine();
+
+        while (line != null) {
+            System.out.println(line);
+            line = reader.readLine();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("oupsy! WTF is that exception?");
+    }
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+    System.out.println("oupsy! File not found...");
+}
+```
+
+### Write in files
+
+To write in a file in Java, we can initiate a **FileWriter** to write in a file. The path is given in
+argument, and another boolean argument as second argument, `true` to write at the end of the file, `false` to
+erase the content of the file and write on.
+
+And a **BufferedWriter** which use the FileWriter to write in the file.
+
+```java
+try {
+    FileWriter fileWriter = new FileWriter("test.txt", true);
+    BufferedWriter writer = new BufferedWriter(fileWriter);
+
+    writer.newLine();
+    writer.write("YOLOOOOOO");
+    writer.newLine();
+    writer.write("HIHI HAHAH HAHAHAHAHA");
+
+    writer.close();
+
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+    System.out.println("oupsy! File not found...");
+} catch (IOException e) {
+    e.printStackTrace();
+    System.out.println("oupsy! WTF is that exception?");
+}
+```
+
 
 -------------------------------------------------------
 
