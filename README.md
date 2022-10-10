@@ -333,6 +333,109 @@ try {
 Since Java 8, it is possible to get a reference to a method. It is called a **closure** , and in Java, it is
 the **Lambda** functionnality. It is a new way to write more compact and readable code.
 
+It is an alternative to anonymous class.
+
+### Anonymous class
+
+Almost like anonymous function in Javascript, **anonymous class** can be declared when instanciate:
+
+```java
+class Bird {
+    void fly() {
+        System.out.println("Just flying");
+    }
+}
+
+Bird myBird = new Bird() {
+    @Override
+    void fly() {
+        System.out.println("Flyyyyyyyyy");
+    }
+};
+
+myBird.fly();
+```
+
+### functionnal interfaces and Lambda code
+
+Java 8 introduces **functional interfaces**. They have (or will have) only 1 abstract method. When Java
+executes Lambda code, it makes sure to determine the method to call.
+
+A **Lambda expression* is a sort of re-definition of a method from a functional interface avoiding to make an
+anonymous class.
+
+The syntax looks like arrow functions is Javascript.
+
+```java
+() -> action
+// or
+(parameter, ...) -> action
+// or
+(parameter, ...) -> { do some stuff, return something }
+```
+
+First example `() -> action`:
+
+```java
+public interface Student {
+    void giveSubject();
+}
+
+public static void main(String[] args) {
+    Student myStudent = () -> {
+        System.out.println("I study art");
+    };
+    myStudent.giveSubject();
+}
+```
+
+Second example `(parameter, ...) -> action`:
+
+```java
+public interface Pokemon {
+    void call(String name, String cry);
+}
+
+public static void main(String[] args) {
+    Pokemon pikachu = (name, cry) -> {
+        System.out.println("The " + name + " says: " + cry);
+    };
+    pikachu.call("Pikachu", "pika pika pikachuuu");
+
+    Pokemon diglett = (name, cry) -> {
+        System.out.println("A " + name + " appears: " + cry);
+    };
+    diglett.call("Diglett", "Digi Digi digiglett!!");
+}
+```
+
+Third example `(parameter, ...) -> { do some stuff, return something }`:
+
+```java
+public interface BagOfCandies {
+    int numberOfCandiesIHave(int firstTypeNumber, String firstTypeName, int secondTypeNumber,
+            String secondTypeName);
+}
+
+public static void main(String[] args) {
+    BagOfCandies myBag = (firstTypeNumber, firstTypeName, secondTypeNumber, secondTypeName) -> {
+        System.out.println("I have " + firstTypeNumber + " " + firstTypeName);
+        System.out.println("I have " + secondTypeNumber + " " + secondTypeName);
+        int numberOfCandies = firstTypeNumber + secondTypeNumber;
+        return numberOfCandies;
+    };
+    
+    int numberOfCandiesIHave = myBag.numberOfCandiesIHave(5, "chewing-gums", 8, "lollipops");
+    System.out.println("In total, I have " + numberOfCandiesIHave + " candies!");
+}
+```
+
+So, a **Lambda expression** is a **reference to a code bloc**.
+
+A **functionnal interface** is an **interface with just one abstract method**.
+
+We can use a **Lambda expression** to
+**implement a functionnal interface without declaring an anonymous class**.
 
 -------------------------------------------------------
 
