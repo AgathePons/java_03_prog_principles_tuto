@@ -328,6 +328,11 @@ try {
 }
 ```
 
+## Lambda function
+
+Since Java 8, it is possible to get a reference to a method. It is called a **closure** , and in Java, it is
+the **Lambda** functionnality. It is a new way to write more compact and readable code.
+
 
 -------------------------------------------------------
 
